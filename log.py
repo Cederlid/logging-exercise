@@ -1,32 +1,36 @@
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s [%(name)s] %(message)s"
+)
+logger = logging.getLogger(__name__)
 data = [1,2,3]
 
 def fetch_data():
-    logging.info("Hämtar data...")
+    logger.info("Hämtar data...")
     if not data:
-        logging.warning("no data found")
+        logger.warning("no data found")
     return data
 
 def process_data(data):
     try:
         if not data:
-            logging.warning("no data")
+            logger.warning("no data")
             return None
-        logging.info("Bearbetar data: %s", data)
+        logger.info("Bearbetar data: %s", data)
         return sum(data) / len(data)
     except Exception:
-        logging.exception("Fel i process_data")
+        logger.exception("Fel i process_data")
         return None
 
 def main():
-    logging.info("Program startar...")
+    logger.info("Program startar…")
     data = fetch_data()
     result = process_data(data)
     if result is not None:
-        logging.info("Resultat: %s", result)
-    logging.info("Program klart.")
+        logger.info("Resultat: %s", result)
+    logger.info("Program klart.")
 
 if __name__ == "__main__":
     main()
